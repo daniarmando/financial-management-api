@@ -1,76 +1,60 @@
 package com.financialmanagement.api.model;
 
+import java.beans.Transient;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
-@Table(name = "category")
-public class Category {
+@Table(name = "person")
+public class Person {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy =GenerationType.IDENTITY)
 	private Long id;
 	
 	@NotNull
-	@Size(min = 3, max = 30)
+	@Size(min = 3, max = 35)
 	private String name;
 	
 	@NotNull
-	private Boolean subcategory;
-	
-	@NotNull
 	private Boolean active;
-	
-	@NotNull
-	@ManyToOne
-	@JoinColumn(name = "person_id")
-	private Person person;
-	
+
 	public Long getId() {
-		return this.id;
+		return id;
 	}
-	
+
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	public String getName() {
-		return this.name;
+		return name;
 	}
-	
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	public Boolean getSubcategory() {
-		return this.subcategory;
-	}
-	
-	public void setSubcategory(Boolean subcategory) {
-		this.subcategory = subcategory;
-	}
-	
+
 	public Boolean getActive() {
-		return this.active;
+		return active;
 	}
-	
+
 	public void setActive(Boolean active) {
 		this.active = active;
 	}
 	
-	public Person getPerson() {
-		return this.person;
-	}
-	
-	public void setPerson(Person person) {
-		this.person = person;
+	@JsonIgnore
+	@Transient
+	public Boolean isInactive() {
+		return !this.active;
 	}
 
 	@Override
@@ -89,13 +73,13 @@ public class Category {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Category other = (Category) obj;
+		Person other = (Person) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}
+	}	
 
 }
