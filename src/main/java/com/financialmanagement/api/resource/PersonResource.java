@@ -24,7 +24,7 @@ import com.financialmanagement.api.repository.PersonRepository;
 import com.financialmanagement.api.service.PersonService;
 
 @RestController
-@RequestMapping("/pessoas")
+@RequestMapping("/persons")
 public class PersonResource {
 
 	@Autowired
@@ -55,7 +55,7 @@ public class PersonResource {
 		return ResponseEntity.ok(savedPerson);
 	}
 	
-	@PutMapping("/{id}/ativo")
+	@PutMapping("/{id}/active")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void updatePropertyActive(@PathVariable Long id, @RequestBody Boolean active) {
 		personService.updatePropertyActive(id, active);

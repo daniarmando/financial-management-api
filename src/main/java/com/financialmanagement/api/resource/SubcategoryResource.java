@@ -33,7 +33,7 @@ import com.financialmanagement.api.service.exception.CategoryNonExistentOrInacti
 import com.financialmanagement.api.service.exception.SubcategoryNonExistentOrInactiveException;
 
 @RestController
-@RequestMapping("/subcategorias")
+@RequestMapping("/subcategories")
 public class SubcategoryResource {
 	
 	@Autowired

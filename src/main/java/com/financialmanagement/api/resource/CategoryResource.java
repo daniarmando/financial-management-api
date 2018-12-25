@@ -32,7 +32,7 @@ import com.financialmanagement.api.service.CategoryService;
 import com.financialmanagement.api.service.exception.PersonNonExistentOrInactiveException;
 
 @RestController
-@RequestMapping("/categorias")
+@RequestMapping("/categories")
 public class CategoryResource {
 	
 	@Autowired
@@ -52,13 +52,13 @@ public class CategoryResource {
 		return categoryRepository.findAll();
 	}	
 	
-	@GetMapping("/ativas")
+	@GetMapping("/active")
 	public ResponseEntity<List<Category>> findByActive() {
 		List<Category> category = categoryRepository.findByActive(true);
 		return !category.isEmpty() ? ResponseEntity.ok(category) : ResponseEntity.notFound().build();
 	}
 		
-	@GetMapping("/inativas")
+	@GetMapping("/inactive")
 	public ResponseEntity<List<Category>> findByInactive() {		
 		List<Category> category = categoryRepository.findByActive(false);
 		return !category.isEmpty() ? ResponseEntity.ok(category) : ResponseEntity.notFound().build();		
@@ -84,7 +84,7 @@ public class CategoryResource {
 		return ResponseEntity.ok(savedCategory);
 	}
 	
-	@PutMapping("/{id}/ativo")
+	@PutMapping("/{id}/active")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void updatePropertyActive(@PathVariable Long id, @RequestBody Boolean active) {
 		categoryService.updatePropertyActive(id, active);
