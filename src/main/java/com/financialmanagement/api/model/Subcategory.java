@@ -1,45 +1,66 @@
 package com.financialmanagement.api.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "subcategory")
 public class Subcategory {
 		
 	@Id	
-	private Long parent;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+		
+	@NotNull
+	@ManyToOne
+	@JoinColumn(name = "parent_category_id")
+	@JsonIgnoreProperties({ "subcategory", "person" })
+	private Category parentCategory;
 	
 	@NotNull
-	@ManyToOne	
-	@JoinColumn(name = "children")
-	private Category children;
-	
-	public Long getParent() {
-		return parent;
+	@OneToOne	
+	@JoinColumn(name = "child_category_id")
+	@JsonIgnoreProperties({ "subcategory", "person" })
+	private Category childCategory;
+
+	public Long getId() {
+		return id;
 	}
 
-	public void setParent(Long parent) {
-		this.parent = parent;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public Category getChildren() {
-		return children;
+	public Category getParentCategory() {
+		return parentCategory;
 	}
 
-	public void setChildren(Category children) {
-		this.children = children;
+	public void setParentCategory(Category parentCategory) {
+		this.parentCategory = parentCategory;
+	}
+
+	public Category getChildCategory() {
+		return childCategory;
+	}
+
+	public void setChildCategory(Category childCategory) {
+		this.childCategory = childCategory;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((parent == null) ? 0 : parent.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
 
@@ -52,10 +73,10 @@ public class Subcategory {
 		if (getClass() != obj.getClass())
 			return false;
 		Subcategory other = (Subcategory) obj;
-		if (parent == null) {
-			if (other.parent != null)
+		if (id == null) {
+			if (other.id != null)
 				return false;
-		} else if (!parent.equals(other.parent))
+		} else if (!id.equals(other.id))
 			return false;
 		return true;
 	}

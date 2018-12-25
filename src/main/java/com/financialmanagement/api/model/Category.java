@@ -1,5 +1,7 @@
 package com.financialmanagement.api.model;
 
+import java.beans.Transient;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,6 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "category")
@@ -32,6 +36,12 @@ public class Category {
 	@ManyToOne
 	@JoinColumn(name = "person_id")
 	private Person person;
+	
+	@JsonIgnore
+	@Transient
+	public Boolean isInactive() {
+		return !this.active;
+	}
 	
 	public Long getId() {
 		return this.id;
