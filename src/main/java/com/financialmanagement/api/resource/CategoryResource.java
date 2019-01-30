@@ -54,13 +54,15 @@ public class CategoryResource {
 	
 	@GetMapping("/active")
 	public ResponseEntity<List<Category>> findByActive() {
-		List<Category> category = categoryRepository.findByActive(true);
+		// List<Category> category = categoryRepository.findByActive(true);
+		List<Category> category = categoryRepository.findByActiveAndPersonId(true, Long.valueOf(1));
 		return !category.isEmpty() ? ResponseEntity.ok(category) : ResponseEntity.notFound().build();
 	}
 		
 	@GetMapping("/inactive")
 	public ResponseEntity<List<Category>> findByInactive() {		
-		List<Category> category = categoryRepository.findByActive(false);
+		// List<Category> category = categoryRepository.findByActive(false);
+		List<Category> category = categoryRepository.findByActiveAndPersonId(false, Long.valueOf(1));
 		return !category.isEmpty() ? ResponseEntity.ok(category) : ResponseEntity.notFound().build();		
 	}		
 	

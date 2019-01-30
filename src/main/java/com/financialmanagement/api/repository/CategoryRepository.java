@@ -9,6 +9,6 @@ import com.financialmanagement.api.model.Category;
 public interface CategoryRepository extends JpaRepository<Category, Long> {
 	
 	public List<Category> findByActive(Boolean active);
-	public List<Category> findBySubcategory(Boolean active);	
+	public List<Category> findByActiveAndPersonId(Boolean active, Long idPerson);	
 
 }
